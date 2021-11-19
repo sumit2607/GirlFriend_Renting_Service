@@ -10,7 +10,13 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.GirlFriend_Renting_Service">
         <activity
+            android:name=".Verify"
+            android:exported="false" />
+        <activity
             android:name=".MainActivity"
+            android:exported="false" />
+        <activity
+            android:name=".mobile"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
