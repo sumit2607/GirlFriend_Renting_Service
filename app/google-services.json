@@ -1,6 +1,7 @@
 {
   "project_info": {
     "project_number": "277658565896",
+    "firebase_url": "https://girlfriend-renting-service-default-rtdb.firebaseio.com",
     "project_id": "girlfriend-renting-service",
     "storage_bucket": "girlfriend-renting-service.appspot.com"
   },
@@ -13,6 +14,14 @@
         }
       },
       "oauth_client": [
+        {
+          "client_id": "277658565896-aim2n88t40jp5oqppsjmicc668356ho2.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.girlfriend_renting_service",
+            "certificate_hash": "aada52dff158dc6e33725c5cb9757840e6ebbb9b"
+          }
+        },
         {
           "client_id": "277658565896-brjuoohpnnp1qqvn12f1doc95ag00e4f.apps.googleusercontent.com",
           "client_type": 3
