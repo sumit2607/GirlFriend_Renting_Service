@@ -10,6 +10,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.GirlFriend_Renting_Service">
         <activity
+            android:name=".pay.PaymentActivity"
+            android:exported="false" />
+
+        <activity
             android:name=".SignUp"
             android:exported="true" />
         <activity
