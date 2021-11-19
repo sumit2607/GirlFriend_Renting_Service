@@ -10,13 +10,13 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.GirlFriend_Renting_Service">
         <activity
-            android:name=".Payment.Payment"
-            android:exported="true" />
-        <activity
-            android:name=".Verify"
+            android:name=".SignUp"
             android:exported="true" />
         <activity
             android:name=".MainActivity"
+            android:exported="true" />
+        <activity
+            android:name=".Verify"
             android:exported="true" />
         <activity
             android:name=".mobile"
