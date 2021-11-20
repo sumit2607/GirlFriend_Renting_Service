@@ -121,7 +121,7 @@ public class SignUp extends AppCompatActivity {
                 boolean checkResult = Verhoeff.validateVerhoeff(adharNumber);
                 String msg = String.valueOf(checkResult);
                 if (msg.equals("true")){
-                    Toast.makeText(getApplicationContext(), "true", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), "Valid Aadhar Number", Toast.LENGTH_LONG).show();
                 }
                 else {
                     regAdhar.setError("Enter valid Aadhar Number");
