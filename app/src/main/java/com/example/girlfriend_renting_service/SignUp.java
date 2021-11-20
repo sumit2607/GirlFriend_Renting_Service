@@ -3,6 +3,7 @@ package com.example.girlfriend_renting_service;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Patterns;
 import android.view.View;
@@ -107,6 +108,8 @@ public class SignUp extends AppCompatActivity {
                     public void onClick(View v) {
                         UserHelperClass helperClass = new UserHelperClass(name, email,adhar,age,password);
                         reference.setValue(helperClass);
+                        Intent intent = new Intent(SignUp.this,MainActivity.class);
+                        startActivity(intent);
                         Toast.makeText(getApplicationContext(), "Data saved successfully", Toast.LENGTH_LONG).show();
                         alertDialog.dismiss();
                     }
@@ -121,7 +124,7 @@ public class SignUp extends AppCompatActivity {
                 boolean checkResult = Verhoeff.validateVerhoeff(adharNumber);
                 String msg = String.valueOf(checkResult);
                 if (msg.equals("true")){
-                    Toast.makeText(getApplicationContext(), "true", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), "Valid Aadhar Number", Toast.LENGTH_LONG).show();
                 }
                 else {
                     regAdhar.setError("Enter valid Aadhar Number");
