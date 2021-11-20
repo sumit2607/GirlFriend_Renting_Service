@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -32,7 +33,6 @@ public class MainActivity extends AppCompatActivity implements ItemClickListener
         BottomNavigation();
         callApi();
     }
-
     private void callApi() {
         ApiClient apiClient = Network.getInstance().create(ApiClient.class);
         apiClient.getProfile().enqueue(new Callback<ResponseDTO>() {
@@ -41,21 +41,17 @@ public class MainActivity extends AppCompatActivity implements ItemClickListener
                 profileDTOS = response.body().getProfile();
                 setRecyler();
             }
-
             @Override
             public void onFailure(Call<ResponseDTO> call, Throwable t) {
-
             }
         });
     }
-
     private void setRecyler() {
         profileAdapter = new ProfileAdapter(profileDTOS, this);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setAdapter(profileAdapter);
     }
-
     @Override
     public void onItemClick(ProfileDTO profileDTO) {
         Intent intent = new Intent(MainActivity.this, ProfileDetailsActivity.class);
@@ -65,6 +61,7 @@ public class MainActivity extends AppCompatActivity implements ItemClickListener
         intent.putExtra("color", profileDTO.getColor());
         startActivity(intent);
     }
+    @SuppressLint("NonConstantResourceId")
     private void BottomNavigation() {
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationBar);
         bottomNavigationView.setSelectedItemId(R.id.home);
@@ -78,6 +75,9 @@ public class MainActivity extends AppCompatActivity implements ItemClickListener
                     return true;
                 case R.id.payment:
                     startActivity(new Intent(getApplicationContext(), PaymentActivity.class));
+                    return true;
+                case R.id.profile:
+                    startActivity(new Intent(getApplicationContext(),WhatsAppIntegration.class));
                     return true;
             }
             return false;
