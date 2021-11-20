@@ -59,6 +59,10 @@ public class MainActivity extends AppCompatActivity implements ItemClickListener
         intent.putExtra("name", profileDTO.getName());
         intent.putExtra("age", profileDTO.getAge());
         intent.putExtra("color", profileDTO.getColor());
+        intent.putExtra("location", profileDTO.getLocation());
+        intent.putExtra("phone", profileDTO.getPhone());
+        intent.putExtra("type", profileDTO.getType());
+        intent.putExtra("about", profileDTO.getAboutMe());
         startActivity(intent);
     }
 

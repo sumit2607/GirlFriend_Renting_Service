@@ -14,11 +14,15 @@
         android:layout_height="0dp"
         android:gravity="center|bottom"
         android:layout_weight="1">
-        <ImageView
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/veri"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_verify"
-            android:paddingBottom="40dp"/>
+            android:paddingBottom="40dp"
+            app:lottie_autoPlay="true"
+            app:lottie_fileName="enterotp.json"
+            app:lottie_loop="true" />
+
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
@@ -26,15 +30,17 @@
         android:orientation="vertical"
         android:gravity="bottom|center"
         android:layout_weight="1">
+
         <TextView
             android:layout_width="match_parent"
-            android:paddingLeft="40dp"
             android:layout_height="wrap_content"
-            android:text="Verify mobile"
+            android:paddingLeft="40dp"
             android:paddingBottom="15dp"
-            android:textSize="20sp"
+            android:text="Verify mobile"
+            android:textColor="#444444"
 
-            android:textColor="#444444"/>
+            android:textSize="20sp" />
+
         <com.chaos.view.PinView
             android:id="@+id/id_otp"
             android:layout_width="wrap_content"

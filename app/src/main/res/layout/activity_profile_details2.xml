@@ -27,13 +27,17 @@
                 android:layout_height="500dp"
                 android:scaleType="centerCrop" />
 
-            <Button
+
+            <com.airbnb.lottie.LottieAnimationView
                 android:id="@+id/btnLike"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="70dp"
+                android:layout_height="39dp"
                 android:layout_alignParentBottom="true"
-                android:text="Like"
-                android:textAllCaps="false" />
+                android:layout_marginStart="24dp"
+                android:layout_marginBottom="0dp"
+                app:lottie_autoPlay="true"
+                app:lottie_fileName="like2.json"
+                app:lottie_loop="true" />
 
             <Button
                 android:id="@+id/btnBlock"
@@ -51,7 +55,7 @@
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentBottom="true"
                 android:layout_centerHorizontal="true"
-                android:text="FindMe"
+                android:text="Hire ME"
                 android:textAllCaps="false" />
 
         </RelativeLayout>
@@ -202,6 +206,29 @@
             android:layout_alignParentEnd="true"
             android:layout_marginTop="5dp"
             android:layout_marginRight="30dp"
+            android:drawablePadding="5dp"
+            android:text="jhsch"
+            android:textSize="18sp" />
+
+
+        <TextView
+            android:id="@+id/ab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="25dp"
+            android:layout_marginTop="220dp"
+            android:drawablePadding="5dp"
+            android:text="about me"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/about"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/ab"
+            android:layout_marginLeft="40dp"
+            android:layout_marginTop="5dp"
             android:drawablePadding="5dp"
             android:text="jhsch"
             android:textSize="18sp" />
