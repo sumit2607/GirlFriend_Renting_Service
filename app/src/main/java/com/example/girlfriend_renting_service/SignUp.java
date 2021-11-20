@@ -107,6 +107,7 @@ public class SignUp extends AppCompatActivity {
                     public void onClick(View v) {
                         UserHelperClass helperClass = new UserHelperClass(name, email,adhar,age,password);
                         reference.setValue(helperClass);
+
                         Toast.makeText(getApplicationContext(), "Data saved successfully", Toast.LENGTH_LONG).show();
                         alertDialog.dismiss();
                     }
