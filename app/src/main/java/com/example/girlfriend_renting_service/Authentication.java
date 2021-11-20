@@ -26,7 +26,7 @@ public class Authentication extends AppCompatActivity {
             @Override
             public void onAuthenticationSucceeded(@NonNull BiometricPrompt.AuthenticationResult result) {
                 super.onAuthenticationSucceeded(result);
-                Intent intent = new Intent(Authentication.this,SignUp.class);
+                Intent intent = new Intent(Authentication.this,mobile.class);
                 startActivity(intent);
             //    Toast.makeText(Authentication.this,"Success",Toast.LENGTH_LONG).show();
             }

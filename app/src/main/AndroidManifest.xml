@@ -12,20 +12,19 @@
         <activity
             android:name=".ProfileDetailsActivity"
             android:exported="false" />
-            android:name=".SignUp"
-            android:exported="true" />
         <activity
-            android:name=".Payment.Payment"
+            android:name=".SignUp"
+            android:exported="false" />
+        <activity
+            android:name=".pay.PaymentActivity"
             android:exported="true" />
         <activity
             android:name=".Verify"
             android:exported="false" />
         <activity
             android:name=".MainActivity"
-            android:exported="true">
-
-
-        </activity>
+            android:exported="true"/>
+        <activity
             android:name=".mobile"
             android:exported="true" />
         <activity
