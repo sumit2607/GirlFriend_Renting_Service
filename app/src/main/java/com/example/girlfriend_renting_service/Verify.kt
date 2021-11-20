@@ -43,7 +43,7 @@ class Verify : AppCompatActivity() {
         auth.signInWithCredential(credential)
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
-                    startActivity(Intent(applicationContext, MainActivity::class.java))
+                    startActivity(Intent(applicationContext, SignUp::class.java))
                     finish()
 // ...
                 } else {

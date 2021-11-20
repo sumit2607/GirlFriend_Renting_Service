@@ -10,12 +10,10 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.girlfriend_renting_service.R;
-import com.razorpay.Checkout;
-import com.razorpay.PaymentResultListener;
 
 import org.json.JSONObject;
 
-public class Payment extends AppCompatActivity implements PaymentResultListener {
+public class Payment extends AppCompatActivity {
 
     Button paybtn;
     TextView paytext;
@@ -24,7 +22,7 @@ public class Payment extends AppCompatActivity implements PaymentResultListener 
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_payment);
-        Checkout.preload(getApplicationContext());
+    //    Checkout.preload(getApplicationContext());
 
         paytext=(TextView)findViewById(R.id.paytext);
         paybtn=(Button)findViewById(R.id.paybtn);
@@ -41,8 +39,8 @@ public class Payment extends AppCompatActivity implements PaymentResultListener 
     private void makepayment()
     {
 
-        Checkout checkout = new Checkout();
-        checkout.setKeyID("rzp_test_ffuuSGrY8rONi7");
+//        Checkout checkout = new Checkout();
+//        checkout.setKeyID("rzp_test_ffuuSGrY8rONi7");
 
         //checkout.setImage(R.drawable.logo);
         final Activity activity = this;
@@ -59,21 +57,12 @@ public class Payment extends AppCompatActivity implements PaymentResultListener 
             options.put("amount", "1");//300 X 100
             options.put("prefill.email", "developer2607@gmail.com");
             options.put("prefill.contact","7864945278");
-            checkout.open(activity, options);
+    //        checkout.open(activity, options);
         } catch(Exception e) {
             Log.e("TAG", "Error in starting Razorpay Checkout", e);
         }
     }
 
 
-    @Override
-    public void onPaymentSuccess(String s)
-    {
-        paytext.setText("Successful payment ID :"+s);
-    }
 
-    @Override
-    public void onPaymentError(int i, String s) {
-        paytext.setText("Failed and cause is :"+s);
-    }
 }

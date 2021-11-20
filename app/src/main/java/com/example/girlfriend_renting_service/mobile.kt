@@ -32,7 +32,7 @@ class mobile : AppCompatActivity() {
 
         var currentUser = auth.currentUser
         if(currentUser != null) {
-            startActivity(Intent(applicationContext, MainActivity::class.java))
+            startActivity(Intent(applicationContext, SignUp::class.java))
             finish()
         }
 
@@ -44,7 +44,7 @@ class mobile : AppCompatActivity() {
         callbacks = object : PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
 
             override fun onVerificationCompleted(credential: PhoneAuthCredential) {
-                startActivity(Intent(applicationContext, MainActivity::class.java))
+                startActivity(Intent(applicationContext, SignUp::class.java))
                 finish()
             }
 
