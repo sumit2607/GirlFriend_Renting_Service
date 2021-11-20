@@ -19,8 +19,6 @@
         android:layout_height="match_parent">
 
 
-
-
         <TextView
             android:id="@+id/textView5"
             android:layout_width="132dp"
@@ -29,22 +27,23 @@
             android:layout_alignParentTop="true"
             android:layout_marginStart="3dp"
             android:layout_marginTop="0dp"
+            android:text="Shubhi Mishra"
             android:textColor="@color/black"
-            android:textStyle="bold"
             android:textSize="17dp"
-            android:text="Shubhi Mishra" />
+            android:textStyle="bold" />
 
-        <Button
-            android:id="@+id/button"
-            android:layout_width="wrap_content"
-            android:layout_height="34dp"
-            android:layout_alignParentTop="true"
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/veri"
+            android:layout_width="80dp"
+            android:layout_height="38dp"
             android:layout_alignParentEnd="true"
-            android:layout_marginTop="-7dp"
-            android:layout_marginEnd="-6dp"
-            android:backgroundTint="#2AD52A"
-            android:text="Verified"
-            android:textColor="@color/black" />
+            android:layout_centerHorizontal="true"
+            android:layout_marginEnd="2dp"
+            android:layout_marginBottom="0dp"
+            app:lottie_autoPlay="true"
+            app:lottie_fileName="verify.json"
+            app:lottie_loop="true" />
+
 
 
 
@@ -54,39 +53,43 @@
         android:id="@+id/ivPic"
         android:layout_width="match_parent"
         android:layout_height="335dp"
-
-
         android:scaleType="centerCrop" />
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <Button
-            android:id="@+id/btnLike"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/animationView"
+            android:layout_width="70dp"
+            android:layout_height="39dp"
+            android:layout_marginBottom="0dp"
+            app:lottie_autoPlay="true"
+            app:lottie_fileName="like.json"
+            app:lottie_loop="true" />
 
-            android:text="Like"
-            android:textAllCaps="false" />
-
-        <Button
+        <com.airbnb.lottie.LottieAnimationView
             android:id="@+id/btnBlock"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-
-            android:text="Block"
-            android:layout_centerHorizontal="true"
-            android:textAllCaps="false" />
-
-        <Button
-            android:id="@+id/btnFindMe"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-
-            android:text="FindMe"
-            android:layout_centerHorizontal="true"
+            android:layout_width="80dp"
+            android:layout_height="38dp"
             android:layout_alignParentEnd="true"
-            android:textAllCaps="false" />
+            android:layout_centerHorizontal="true"
+            android:layout_marginEnd="157dp"
+            android:layout_marginBottom="0dp"
+            app:lottie_autoPlay="true"
+            app:lottie_fileName="block.json"
+            app:lottie_loop="true" />
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/findme"
+            android:layout_width="80dp"
+            android:layout_height="38dp"
+            android:layout_alignParentEnd="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginEnd="2dp"
+            android:layout_marginBottom="0dp"
+            app:lottie_autoPlay="true"
+            app:lottie_fileName="arrow.json"
+            app:lottie_loop="true" />
 
     </RelativeLayout>
 
