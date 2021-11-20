@@ -42,6 +42,9 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
     implementation 'com.chaos.view:pinview:1.4.3'
 
+    //fire-base
+    implementation 'com.google.firebase:firebase-database:20.0.2'
+
     // Retrofit & OkHttp
     implementation 'com.squareup.retrofit2:retrofit:2.5.0'
     // This library is used by retrofit internally to convert json-pojo and pojo-json
