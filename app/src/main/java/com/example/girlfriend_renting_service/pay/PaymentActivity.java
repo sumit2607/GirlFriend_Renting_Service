@@ -1,5 +1,23 @@
 package com.example.girlfriend_renting_service.pay;
 
+import static com.cashfree.pg.CFPaymentService.PARAM_APP_ID;
+import static com.cashfree.pg.CFPaymentService.PARAM_BANK_CODE;
+import static com.cashfree.pg.CFPaymentService.PARAM_CARD_CVV;
+import static com.cashfree.pg.CFPaymentService.PARAM_CARD_HOLDER;
+import static com.cashfree.pg.CFPaymentService.PARAM_CARD_MM;
+import static com.cashfree.pg.CFPaymentService.PARAM_CARD_NUMBER;
+import static com.cashfree.pg.CFPaymentService.PARAM_CARD_YYYY;
+import static com.cashfree.pg.CFPaymentService.PARAM_CUSTOMER_EMAIL;
+import static com.cashfree.pg.CFPaymentService.PARAM_CUSTOMER_NAME;
+import static com.cashfree.pg.CFPaymentService.PARAM_CUSTOMER_PHONE;
+import static com.cashfree.pg.CFPaymentService.PARAM_ORDER_AMOUNT;
+import static com.cashfree.pg.CFPaymentService.PARAM_ORDER_CURRENCY;
+import static com.cashfree.pg.CFPaymentService.PARAM_ORDER_ID;
+import static com.cashfree.pg.CFPaymentService.PARAM_ORDER_NOTE;
+import static com.cashfree.pg.CFPaymentService.PARAM_PAYMENT_OPTION;
+import static com.cashfree.pg.CFPaymentService.PARAM_UPI_VPA;
+import static com.cashfree.pg.CFPaymentService.PARAM_WALLET_CODE;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
@@ -15,180 +33,207 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.cashfree.pg.CFPaymentService;
+import com.cashfree.pg.ui.gpay.GooglePayStatusListener;
 import com.example.girlfriend_renting_service.R;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class PaymentActivity extends AppCompatActivity {
 
-    EditText amount, note, name, upivirtualid;
-    Button send;
-    String TAG ="main";
-    final int UPI_PAYMENT = 0;
+    enum SeamlessMode {
+        CARD, WALLET, NET_BANKING, UPI_COLLECT, PAY_PAL
+    }
+
+    SeamlessMode currentMode = SeamlessMode.CARD;
+
+    private static final String TAG = "MainActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_payment2);
-
-        send = (Button) findViewById(R.id.send);
-        amount = (EditText)findViewById(R.id.amount_et);
-        note = (EditText)findViewById(R.id.note);
-        name = (EditText) findViewById(R.id.name);
-        upivirtualid =(EditText) findViewById(R.id.upi_id);
-
-        send.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //Getting the values from the EditTexts
-                if (TextUtils.isEmpty(name.getText().toString().trim())){
-                    Toast.makeText(PaymentActivity.this," Name is invalid", Toast.LENGTH_SHORT).show();
-
-                }else if (TextUtils.isEmpty(upivirtualid.getText().toString().trim())){
-                    Toast.makeText(PaymentActivity.this," UPI ID is invalid", Toast.LENGTH_SHORT).show();
-
-                }else if (TextUtils.isEmpty(note.getText().toString().trim())){
-                    Toast.makeText(PaymentActivity.this," Note is invalid", Toast.LENGTH_SHORT).show();
-
-                }else if (TextUtils.isEmpty(amount.getText().toString().trim())){
-                    Toast.makeText(PaymentActivity.this," Amount is invalid", Toast.LENGTH_SHORT).show();
-                }else{
-
-                    payUsingUpi(name.getText().toString(), upivirtualid.getText().toString(),
-                            note.getText().toString(), amount.getText().toString());
-
-                }
-
-
-            }
-        });
-    }
-
-
-    void payUsingUpi(  String name,String upiId, String note, String amount) {
-        Log.e("main ", "name "+name +"--up--"+upiId+"--"+ note+"--"+amount);
-        // main: name pavan n--up--pavan.n.sap@okaxis--Test UPI Payment--5.00
-        Uri uri = Uri.parse("upi://pay").buildUpon()
-                .appendQueryParameter("pa", upiId)
-                .appendQueryParameter("pn", name)
-                //.appendQueryParameter("mc", "")
-                //.appendQueryParameter("tid", "02125412")
-                //.appendQueryParameter("tr", "25584584")
-                .appendQueryParameter("tn", note)
-                .appendQueryParameter("am", amount)
-                .appendQueryParameter("cu", "INR")
-                //.appendQueryParameter("refUrl", "blueapp")
-                .build();
-
-
-        Intent upiPayIntent = new Intent(Intent.ACTION_VIEW);
-        upiPayIntent.setData(uri);
-
-        // will always show a dialog to user to choose an app
-        Intent chooser = Intent.createChooser(upiPayIntent, "Pay with");
-
-        // check if intent resolves
-        if(null != chooser.resolveActivity(getPackageManager())) {
-            startActivityForResult(chooser, UPI_PAYMENT);
-        } else {
-            Toast.makeText(PaymentActivity.this,"No UPI app found, please install one to continue",Toast.LENGTH_SHORT).show();
-        }
-
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        Log.e("main ", "response "+resultCode );
-        /*
-       E/main: response -1
-       E/UPI: onActivityResult: txnId=AXI4a3428ee58654a938811812c72c0df45&responseCode=00&Status=SUCCESS&txnRef=922118921612
-       E/UPIPAY: upiPaymentDataOperation: txnId=AXI4a3428ee58654a938811812c72c0df45&responseCode=00&Status=SUCCESS&txnRef=922118921612
-       E/UPI: payment successfull: 922118921612
-         */
-        switch (requestCode) {
-            case UPI_PAYMENT:
-                if ((RESULT_OK == resultCode) || (resultCode == 11)) {
-                    if (data != null) {
-                        String trxt = data.getStringExtra("response");
-                        Log.e("UPI", "onActivityResult: " + trxt);
-                        ArrayList<String> dataList = new ArrayList<>();
-                        dataList.add(trxt);
-                        upiPaymentDataOperation(dataList);
-                    } else {
-                        Log.e("UPI", "onActivityResult: " + "Return data is null");
-                        ArrayList<String> dataList = new ArrayList<>();
-                        dataList.add("nothing");
-                        upiPaymentDataOperation(dataList);
+        //Same request code for all payment APIs.
+//        Log.d(TAG, "ReqCode : " + CFPaymentService.REQ_CODE);
+        Log.d(TAG, "API Response : ");
+        //Prints all extras. Replace with app logic.
+        if (data != null) {
+            Bundle bundle = data.getExtras();
+            if (bundle != null)
+                for (String key : bundle.keySet()) {
+                    if (bundle.getString(key) != null) {
+                        Log.d(TAG, key + " : " + bundle.getString(key));
                     }
-                } else {
-                    //when user simply back without payment
-                    Log.e("UPI", "onActivityResult: " + "Return data is null");
-                    ArrayList<String> dataList = new ArrayList<>();
-                    dataList.add("nothing");
-                    upiPaymentDataOperation(dataList);
                 }
+        }
+    }
+
+    public void onClick(View view) {
+
+
+        /*
+         * stage allows you to switch between sandboxed and production servers
+         * for CashFree Payment Gateway. The possible values are
+         *
+         * 1. TEST: Use the Test server. You can use this service while integrating
+         *      and testing the CashFree PG. No real money will be deducted from the
+         *      cards and bank accounts you use this stage. This mode is thus ideal
+         *      for use during the development. You can use the cards provided here
+         *      while in this stage: https://docs.cashfree.com/docs/resources/#test-data
+         *
+         * 2. PROD: Once you have completed the testing and integration and successfully
+         *      integrated the CashFree PG, use this value for stage variable. This will
+         *      enable live transactions
+         */
+        String stage = "TEST";
+
+        //Show the UI for doGPayPayment and phonePePayment only after checking if the apps are ready for payment
+        if (view.getId() == R.id.phonePe_exists) {
+            Toast.makeText(
+                    PaymentActivity.this,
+                    CFPaymentService.getCFPaymentServiceInstance().doesPhonePeExist(PaymentActivity.this, stage)+"",
+                    Toast.LENGTH_SHORT).show();
+            return;
+        } else if (view.getId() == R.id.gpay_ready) {
+            CFPaymentService.getCFPaymentServiceInstance().isGPayReadyForPayment(PaymentActivity.this, new GooglePayStatusListener() {
+                @Override
+                public void isReady() {
+                    Toast.makeText(PaymentActivity.this, "Ready", Toast.LENGTH_SHORT).show();
+                }
+                @Override
+                public void isNotReady() {
+                    Toast.makeText(PaymentActivity.this, "Not Ready", Toast.LENGTH_SHORT).show();
+                }
+            });
+            return;
+        }
+
+        /*
+         * token can be generated from your backend by calling cashfree servers. Please
+         * check the documentation for details on generating the token.
+         * READ THIS TO GENERATE TOKEN: https://bit.ly/2RGV3Pp
+         */
+        String token = "TOKEN_DATA";
+
+
+        CFPaymentService cfPaymentService = CFPaymentService.getCFPaymentServiceInstance();
+        cfPaymentService.setOrientation(0);
+        switch (view.getId()) {
+
+            /***
+             * This method handles the payment gateway invocation (web flow).
+             *
+             * @param context Android context of the calling activity
+             * @param params HashMap containing all the parameters required for creating a payment order
+             * @param token Provide the token for the transaction
+             * @param stage Identifies if test or production service needs to be invoked. Possible values:
+             *              PROD for production, TEST for testing.
+             * @param color1 Background color of the toolbar
+             * @param color2 text color and icon color of toolbar
+             * @param hideOrderId If true hides order Id from the toolbar
+             */
+            case R.id.web: {
+                cfPaymentService.doPayment(PaymentActivity.this, getInputParams(), token, stage, "#784BD2", "#FFFFFF", false);
+//                 cfPaymentService.doPayment(MainActivity.this, params, token, stage);
+                break;
+            }
+            /***
+             * Same for all payment modes below.
+             *
+             * @param context Android context of the calling activity
+             * @param params HashMap containing all the parameters required for creating a payment order
+             * @param token Provide the token for the transaction
+             * @param stage Identifies if test or production service needs to be invoked. Possible values:
+             *              PROD for production, TEST for testing.
+             */
+            case R.id.upi: {
+//                                cfPaymentService.selectUpiClient("com.google.android.apps.nbu.paisa.user");
+                cfPaymentService.upiPayment(PaymentActivity.this, getInputParams(), token, stage);
+                break;
+            }
+            case R.id.amazon: {
+                cfPaymentService.doAmazonPayment(PaymentActivity.this, getInputParams(), token, stage);
+                break;
+            }
+            case R.id.gpay: {
+                cfPaymentService.gPayPayment(PaymentActivity.this, getInputParams(), token, stage);
+                break;
+            }
+            case R.id.phonePe: {
+                cfPaymentService.phonePePayment(PaymentActivity.this, getInputParams(), token, stage);
+                break;
+            }
+            case R.id.web_seamless: {
+                cfPaymentService.doPayment(PaymentActivity.this, getSeamlessCheckoutParams(), token, stage);
+                break;
+            }
+        }
+    }
+
+    private Map<String, String> getInputParams() {
+
+        /*
+         * appId will be available to you at CashFree Dashboard. This is a unique
+         * identifier for your app. Please replace this appId with your appId.
+         * Also, as explained below you will need to change your appId to prod
+         * credentials before publishing your app.
+         */
+        String appId = "YOUR_APP_ID_HERE";
+        String orderId = "Order0001";
+        String orderAmount = "1";
+        String orderNote = "Test Order";
+        String customerName = "John Doe";
+        String customerPhone = "9900012345";
+        String customerEmail = "test@gmail.com";
+
+        Map<String, String> params = new HashMap<>();
+
+        params.put(PARAM_APP_ID, appId);
+        params.put(PARAM_ORDER_ID, orderId);
+        params.put(PARAM_ORDER_AMOUNT, orderAmount);
+        params.put(PARAM_ORDER_NOTE, orderNote);
+        params.put(PARAM_CUSTOMER_NAME, customerName);
+        params.put(PARAM_CUSTOMER_PHONE, customerPhone);
+        params.put(PARAM_CUSTOMER_EMAIL, customerEmail);
+        params.put(PARAM_ORDER_CURRENCY, "INR");
+        return params;
+    }
+
+    private Map<String, String> getSeamlessCheckoutParams() {
+        Map<String, String> params = getInputParams();
+        switch (currentMode) {
+            case CARD:
+                params.put(PARAM_PAYMENT_OPTION, "card");
+                params.put(PARAM_CARD_NUMBER, "VALID_CARD_NUMBER");
+                params.put(PARAM_CARD_YYYY, "YYYY");
+                params.put(PARAM_CARD_MM, "MM");
+                params.put(PARAM_CARD_HOLDER, "CARD_HOLDER_NAME");
+                params.put(PARAM_CARD_CVV, "CVV");
+                break;
+            case WALLET:
+                params.put(PARAM_PAYMENT_OPTION, "wallet");
+                params.put(PARAM_WALLET_CODE, "4007"); // Put one of the wallet codes mentioned here https://dev.cashfree.com/payment-gateway/payments/wallets
+                break;
+            case NET_BANKING:
+                params.put(PARAM_PAYMENT_OPTION, "nb");
+                params.put(PARAM_BANK_CODE, "3333"); // Put one of the bank codes mentioned here https://dev.cashfree.com/payment-gateway/payments/netbanking
+                break;
+            case UPI_COLLECT:
+                params.put(PARAM_PAYMENT_OPTION, "upi");
+                params.put(PARAM_UPI_VPA, "VALID_VPA");
+                break;
+            case PAY_PAL:
+                params.put(PARAM_PAYMENT_OPTION, "paypal");
                 break;
         }
+        return params;
     }
-
-    private void upiPaymentDataOperation(ArrayList<String> data) {
-        if (isConnectionAvailable(PaymentActivity.this)) {
-            String str = data.get(0);
-            Log.e("UPIPAY", "upiPaymentDataOperation: "+str);
-            String paymentCancel = "";
-            if(str == null) str = "discard";
-            String status = "";
-            String approvalRefNo = "";
-            String response[] = str.split("&");
-            for (int i = 0; i < response.length; i++) {
-                String equalStr[] = response[i].split("=");
-                if(equalStr.length >= 2) {
-                    if (equalStr[0].toLowerCase().equals("Status".toLowerCase())) {
-                        status = equalStr[1].toLowerCase();
-                    }
-                    else if (equalStr[0].toLowerCase().equals("ApprovalRefNo".toLowerCase()) || equalStr[0].toLowerCase().equals("txnRef".toLowerCase())) {
-                        approvalRefNo = equalStr[1];
-                    }
-                }
-                else {
-                    paymentCancel = "Payment cancelled by user.";
-                }
-            }
-
-            if (status.equals("success")) {
-                //Code to handle successful transaction here.
-                Toast.makeText(PaymentActivity.this, "Transaction successful.", Toast.LENGTH_SHORT).show();
-                Log.e("UPI", "payment successfull: "+approvalRefNo);
-            }
-            else if("Payment cancelled by user.".equals(paymentCancel)) {
-                Toast.makeText(PaymentActivity.this, "Payment cancelled by user.", Toast.LENGTH_SHORT).show();
-                Log.e("UPI", "Cancelled by user: "+approvalRefNo);
-
-            }
-            else {
-                Toast.makeText(PaymentActivity.this, "Transaction failed.Please try again", Toast.LENGTH_SHORT).show();
-                Log.e("UPI", "failed payment: "+approvalRefNo);
-
-            }
-        } else {
-            Log.e("UPI", "Internet issue: ");
-
-            Toast.makeText(PaymentActivity.this, "Internet connection is not available. Please check and try again", Toast.LENGTH_SHORT).show();
-        }
-    }
-
-    public static boolean isConnectionAvailable(Context context) {
-        ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
-        if (connectivityManager != null) {
-            NetworkInfo netInfo = connectivityManager.getActiveNetworkInfo();
-            if (netInfo != null && netInfo.isConnected()
-                    && netInfo.isConnectedOrConnecting()
-                    && netInfo.isAvailable()) {
-                return true;
-            }
-        }
-        return false;
-    }
-
 }
+
