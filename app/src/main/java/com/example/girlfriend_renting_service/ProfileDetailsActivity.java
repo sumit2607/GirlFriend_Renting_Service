@@ -27,8 +27,8 @@ public class ProfileDetailsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile_details2);
         mIvImage = findViewById(R.id.ivImage);
-        mIvImage1 = findViewById(R.id.ivImage1);
-        mIvImage2 = findViewById(R.id.ivImage2);
+
+
         mTvName = findViewById(R.id.name);
         mTvAge = findViewById(R.id.age);
         mTvColor = findViewById(R.id.color);
@@ -43,8 +43,8 @@ public class ProfileDetailsActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         Glide.with(mIvImage).load(intent.getStringExtra("imageUrl")).into(mIvImage);
-        Glide.with(mIvImage1).load(intent.getStringExtra("imageUrl")).into(mIvImage1);
-        Glide.with(mIvImage2).load(intent.getStringExtra("imageUrl")).into(mIvImage2);
+       // Glide.with(mIvImage1).load(intent.getStringExtra("imageUrl")).into(mIvImage1);
+        //Glide.with(mIvImage2).load(intent.getStringExtra("imageUrl")).into(mIvImage2);
         mTvName.setText(intent.getStringExtra("name"));
         mTvAge.setText(intent.getStringExtra("age"));
         mTvColor.setText(intent.getStringExtra("color"));

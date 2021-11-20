@@ -10,16 +10,18 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="wrap_content" />
+
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavigationBar"
+
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:background="?android:attr/windowBackground"
-        app:menu="@menu/bottom_navigation"
-        android:nextFocusUp="@color/black"
         android:clickable="true"
         android:defaultFocusHighlightEnabled="true"
-        android:outlineSpotShadowColor="@color/black"/>
+        android:nextFocusUp="@color/black"
+        android:outlineSpotShadowColor="@color/black"
+        app:menu="@menu/bottom_navigation" />
 </RelativeLayout>
