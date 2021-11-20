@@ -19,7 +19,7 @@ public class WhatsAppIntegration extends AppCompatActivity {
         setContentView(R.layout.activity_whats_app_integration);
         mBtnSendMessage = findViewById(R.id.btnSendMessageWhatsApp);
 
-        final String num = "+919354970077";
+        final String num = "+918882349318";
         final String text = "Hello";
 
         mBtnSendMessage.setOnClickListener(new View.OnClickListener() {

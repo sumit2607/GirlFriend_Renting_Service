@@ -15,6 +15,9 @@
             android:name=".WhatsAppIntegration"
             android:exported="false" />
         <activity
+            android:name=".TestActivity"
+            android:exported="false" />
+        <activity
             android:name=".ProfileDetailsActivity"
             android:exported="false" />
         <activity
