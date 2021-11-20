@@ -77,7 +77,7 @@ public class MainActivity extends AppCompatActivity implements ItemClickListener
                     startActivity(new Intent(getApplicationContext(), PaymentActivity.class));
                     return true;
                 case R.id.profile:
-                    startActivity(new Intent(getApplicationContext(),WhatsAppIntegration.class));
+                    startActivity(new Intent(getApplicationContext(),ProfileActivity.class));
                     return true;
             }
             return false;
