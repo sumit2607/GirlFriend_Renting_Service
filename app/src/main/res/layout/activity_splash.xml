@@ -14,4 +14,14 @@
         app:lottie_autoPlay="true"
         app:lottie_loop="true"/>
 
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="160dp"
+        android:layout_marginBottom="84dp"
+        android:text="Buy Your Date Here" />
+
 </RelativeLayout>

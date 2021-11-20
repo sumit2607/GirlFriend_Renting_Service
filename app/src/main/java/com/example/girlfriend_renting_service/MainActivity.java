@@ -61,7 +61,7 @@ public class MainActivity extends AppCompatActivity implements ItemClickListener
         intent.putExtra("color", profileDTO.getColor());
         startActivity(intent);
     }
-    @SuppressLint("NonConstantResourceId")
+
     private void BottomNavigation() {
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationBar);
         bottomNavigationView.setSelectedItemId(R.id.home);
