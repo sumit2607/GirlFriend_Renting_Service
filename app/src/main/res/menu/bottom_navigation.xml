@@ -13,4 +13,8 @@
         android:id="@+id/payment"
         android:icon="@drawable/ic_home"
         android:title="Payment"/>
+    <item
+        android:id="@+id/profile"
+        android:icon="@drawable/ic_home"
+        android:title="Profile"/>
 </menu>
