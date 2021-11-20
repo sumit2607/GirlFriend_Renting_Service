@@ -8,6 +8,8 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.example.girlfriend_renting_service.adapter.ProfileAdapter;
+import com.example.girlfriend_renting_service.pay.PaymentActivity;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,8 +29,8 @@ public class MainActivity extends AppCompatActivity implements ItemClickListener
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         recyclerView = findViewById(R.id.recyclerView);
+        BottomNavigation();
         callApi();
-
     }
 
     private void callApi() {
@@ -62,5 +64,23 @@ public class MainActivity extends AppCompatActivity implements ItemClickListener
         intent.putExtra("age", profileDTO.getAge());
         intent.putExtra("color", profileDTO.getColor());
         startActivity(intent);
+    }
+    private void BottomNavigation() {
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationBar);
+        bottomNavigationView.setSelectedItemId(R.id.home);
+        bottomNavigationView.setOnNavigationItemSelectedListener(item -> {
+            switch (bottomNavigationView.getSelectedItemId()) {
+                case R.id.home:
+                    startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                    return true;
+                case R.id.category:
+                    startActivity(new Intent(getApplicationContext(), SignUp.class));
+                    return true;
+                case R.id.payment:
+                    startActivity(new Intent(getApplicationContext(), PaymentActivity.class));
+                    return true;
+            }
+            return false;
+        });
     }
 }
