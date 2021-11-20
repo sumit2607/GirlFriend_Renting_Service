@@ -28,7 +28,7 @@ class Verify : AppCompatActivity() {
 
 
         verify.setOnClickListener{
-            var otp=otpGiven.text.toString().trim()
+            val otp=otpGiven.text.toString().trim()
             if(!otp.isEmpty()){
                 val credential : PhoneAuthCredential = PhoneAuthProvider.getCredential(
                     storedVerificationId.toString(), otp)
