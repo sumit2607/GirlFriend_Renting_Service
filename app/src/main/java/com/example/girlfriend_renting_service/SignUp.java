@@ -1,11 +1,14 @@
 package com.example.girlfriend_renting_service;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -47,7 +50,7 @@ public class SignUp extends AppCompatActivity {
                     return;
                 }
                 if (adhar.isEmpty()){
-                    regAdhar.setError("Adhar Number is required");
+                    regAdhar.setError("Aadhar Number is required");
                     regAdhar.requestFocus();
                     return;
                 }
@@ -62,7 +65,7 @@ public class SignUp extends AppCompatActivity {
                     return;
                 }
                 if (adhar.length() < 12){
-                    regAdhar.setError("Your adhar length should be 12 characters");
+                    regAdhar.setError("Your aadhar number length should be 12 characters");
                     regAdhar.requestFocus();
                     return;
                 }
@@ -81,13 +84,34 @@ public class SignUp extends AppCompatActivity {
                     regPassword.requestFocus();
                     return;
                 }
-//                if (numAge < 18){
-//                    regAge.setError("Your age should be atleast 18 years");
-//                    regAge.requestFocus();
-//                    return;
-//                }
-                UserHelperClass helperClass = new UserHelperClass(name, email,adhar,age,password);
-                reference.setValue(helperClass);
+
+//                UserHelperClass helperClass = new UserHelperClass(name, email,adhar,age,password);
+//                reference.setValue(helperClass);
+
+                //***************************************************************
+                final AlertDialog.Builder alert = new AlertDialog.Builder(SignUp.this);
+                View mView = getLayoutInflater().inflate(R.layout.dialogue_data_saved_confirmation,null);
+                ImageButton btn_cancel = (ImageButton)mView.findViewById(R.id.btn_cancel_Dialogue_SaveData);
+                Button btn_okay = (Button)mView.findViewById(R.id.btn_OK_saveData);
+                alert.setView(mView);
+                final AlertDialog alertDialog = alert.create();
+                alertDialog.setCanceledOnTouchOutside(false);
+                btn_cancel.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        alertDialog.dismiss();
+                    }
+                });
+                btn_okay.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        UserHelperClass helperClass = new UserHelperClass(name, email,adhar,age,password);
+                        reference.setValue(helperClass);
+                        Toast.makeText(getApplicationContext(), "Data saved successfully", Toast.LENGTH_LONG).show();
+                        alertDialog.dismiss();
+                    }
+                });
+                alertDialog.show();
             }
         });
         mBtnAdharValidation.setOnClickListener(new View.OnClickListener() {
@@ -96,13 +120,12 @@ public class SignUp extends AppCompatActivity {
                 String adharNumber = regAdhar.getEditText().getText().toString();
                 boolean checkResult = Verhoeff.validateVerhoeff(adharNumber);
                 String msg = String.valueOf(checkResult);
-                if (msg == "true"){
+                if (msg.equals("true")){
                     Toast.makeText(getApplicationContext(), "true", Toast.LENGTH_LONG).show();
                 }
                 else {
-                    regAdhar.setError("Enter valid Adhar Number");
+                    regAdhar.setError("Enter valid Aadhar Number");
                     regAdhar.requestFocus();
-                    return;
                     //    Toast.makeText(getApplicationContext(), "Enter valid Adhar Number", Toast.LENGTH_LONG).show();
                 }
             }
