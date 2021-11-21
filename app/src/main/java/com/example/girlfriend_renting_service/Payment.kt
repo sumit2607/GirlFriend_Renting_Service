@@ -38,7 +38,7 @@ class Payment : AppCompatActivity(), PaymentResultListener {
             //    options.put("order_id", "order_DBJOWzybf0sJbb");//from response of step 3.
             options.put("theme.color", "#3399cc")
             options.put("currency", "INR")
-            options.put("amount", "100") //pass amount in currency subunits
+            options.put("amount", "49900") //pass amount in currency subunits
             options.put("prefill.email", "nishant.rishab@example.com")
             options.put("prefill.contact", "+918882349318")
             val retryObj = JSONObject()
