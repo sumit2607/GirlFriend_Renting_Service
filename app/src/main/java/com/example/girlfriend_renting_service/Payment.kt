@@ -1,8 +1,10 @@
 package com.example.girlfriend_renting_service
 
 import android.app.Activity
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.provider.ContactsContract
 import android.util.Log
 import android.widget.Button
 import android.widget.TextView
@@ -15,11 +17,14 @@ class Payment : AppCompatActivity(), PaymentResultListener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_payment)
         btn.setOnClickListener {
-            makepayment()
+            if (makepayment()){
+                val intent = Intent(this@Payment,ProfileActivity::class.java)
+                startActivity(intent)
+            }
         }
     }
 
-    private fun makepayment() {
+    private fun makepayment(): Boolean {
 
         val checkout = Checkout()
         checkout.setKeyID("rzp_test_leWM6m9wU6q5j6")
@@ -44,9 +49,23 @@ class Payment : AppCompatActivity(), PaymentResultListener {
         } catch (e: Exception) {
             Log.e("TAG", "Error in starting Razorpay Checkout", e)
         }
+        return true
     }
     override fun onPaymentSuccess(s: String) {
         paytext!!.text = "Successful payment ID :$s"
+//        val intent1 = intent
+//        val intent = Intent(this@Payment,ProfileActivity::class.java)
+//        intent.putExtra("image7", intent1.getStringExtra("image6"))
+//        intent.putExtra("name2", intent1.getStringExtra("name1"))
+//        intent.putExtra("age1", (Serializable) mTvAge);
+//        intent.putExtra("location1", (Serializable) mTvLocation);
+//        intent.putExtra("phone1", (Serializable) mTvPhone);
+//        intent.putExtra("type1", (Serializable) mTvType);
+//        intent.putExtra("color1", (Serializable) mTvColor);
+//        intent.putExtra("location1", (Serializable) mTvLocation);
+//        intent.putExtra("phone1", (Serializable) mTvPhone);
+//        intent.putExtra("about1", (Serializable) mTvAbout);
+//        startActivity(intent);
     }
 
     override fun onPaymentError(i: Int, s: String) {

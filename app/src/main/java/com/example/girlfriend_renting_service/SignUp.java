@@ -65,6 +65,11 @@ public class SignUp extends AppCompatActivity {
                     regEmail.requestFocus();
                     return;
                 }
+                if (adhar.isEmpty()){
+                    regAdhar.setError("Aadhar Number is mandatory");
+                    regAdhar.requestFocus();
+                    return;
+                }
                 if (adhar.length() < 12){
                     regAdhar.setError("Your aadhar number length should be 12 characters");
                     regAdhar.requestFocus();

@@ -12,6 +12,8 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.example.girlfriend_renting_service.pay.PaymentActivity;
 
+import java.io.Serializable;
+
 public class ProfileDetailsActivity extends AppCompatActivity {
 
     private ImageView mIvImage;
@@ -42,7 +44,7 @@ public class ProfileDetailsActivity extends AppCompatActivity {
         mBtnProceed.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent  = new Intent(ProfileDetailsActivity.this, PaymentActivity.class);
+                Intent intent = new Intent(ProfileDetailsActivity.this, Payment.class);
                 startActivity(intent);
             }
         });

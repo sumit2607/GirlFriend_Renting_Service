@@ -3,6 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_margin="10dp"
+    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ProfileActivity">
@@ -24,7 +25,7 @@
             <TextView
                 android:id="@+id/tvProfileName"
                 android:layout_marginStart="10dp"
-                android:text="Full Name"
+                android:text="Sumit Rai"
                 android:textSize="16sp"
                 android:textAlignment="center"
                 android:drawablePadding="6dp"
@@ -35,7 +36,7 @@
             <TextView
                 android:id="@+id/tvProfileEmailAddress"
                 android:layout_marginStart="10dp"
-                android:text="Email Address"
+                android:text="raisumit540@gmail.com"
                 android:drawableLeft="@drawable/ic_email"
                 android:drawablePadding="6dp"
                 android:textSize="16sp"
@@ -46,7 +47,7 @@
             <TextView
                 android:id="@+id/tvProfileAge"
                 android:layout_marginStart="10dp"
-                android:text="Age"
+                android:text="24"
                 android:drawableLeft="@drawable/ic_age"
                 android:drawablePadding="6dp"
                 android:textSize="16sp"
@@ -57,7 +58,7 @@
             <TextView
                 android:id="@+id/tvProfileAadharNumber"
                 android:layout_marginStart="10dp"
-                android:text="Aadhar Number"
+                android:text="945953817966"
                 android:drawableLeft="@drawable/ic_aadhar"
                 android:drawablePadding="6dp"
                 android:textSize="16sp"
@@ -67,4 +68,45 @@
                 android:layout_height="wrap_content"/>
         </LinearLayout>
     </RelativeLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_marginTop="40dp"
+        android:orientation="horizontal"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:id="@+id/testIvProfileImage"
+            android:src="@drawable/testimage"
+            android:layout_width="80dp"
+            android:layout_height="60dp"/>
+        <TextView
+            android:id="@+id/testTvName"
+            android:text="Satakshi"
+            android:textColor="@color/black"
+            android:layout_marginStart="8dp"
+            android:layout_gravity="center"
+            android:textSize="14sp"
+            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <TextView
+            android:id="@+id/testTvMobileNumber"
+            android:text="7415126102"
+            android:layout_gravity="center"
+            android:textSize="14sp"
+            android:textColor="@color/black"
+            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <Button
+            android:id="@+id/testBtnContact"
+            android:text="Contact"
+            android:textAllCaps="false"
+            android:backgroundTint="#7F96E9"
+            android:layout_gravity="center"
+            android:textSize="12sp"
+            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+
 </LinearLayout>
