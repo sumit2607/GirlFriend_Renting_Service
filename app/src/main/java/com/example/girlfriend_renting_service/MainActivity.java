@@ -74,7 +74,7 @@ public class MainActivity extends AppCompatActivity implements ItemClickListener
                     startActivity(new Intent(getApplicationContext(), SignUp.class));
                     return true;
                 case R.id.payment:
-                    startActivity(new Intent(getApplicationContext(), PaymentActivity.class));
+                    startActivity(new Intent(getApplicationContext(), Payment.class));
                     return true;
                 case R.id.profile:
                     startActivity(new Intent(getApplicationContext(),ProfileActivity.class));

@@ -2,6 +2,8 @@ plugins {
     id 'com.android.application'
     id 'com.google.gms.google-services'
     id 'kotlin-android'
+    id 'kotlin-kapt'
+    id 'kotlin-android-extensions'
 }
 
 
@@ -50,6 +52,7 @@ dependencies {
     implementation 'com.chaos.view:pinview:1.4.3'
     implementation 'androidx.biometric:biometric:1.1.0'
 
+
     //fire-base
     implementation 'com.google.firebase:firebase-database:20.0.2'
 
@@ -69,7 +72,6 @@ dependencies {
     def lottieVersion = "3.4.0"
     implementation "com.airbnb.android:lottie:$lottieVersion"
 
-
-
-
+    //razorPayment
+    implementation 'com.razorpay:checkout:1.6.12'
 }
