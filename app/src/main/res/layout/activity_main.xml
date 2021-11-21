@@ -23,5 +23,6 @@
         android:defaultFocusHighlightEnabled="true"
         android:nextFocusUp="@color/black"
         android:outlineSpotShadowColor="@color/black"
-        app:menu="@menu/bottom_navigation" />
+        app:menu="@menu/bottom_navigation"
+        android:focusable="true" />
 </RelativeLayout>
