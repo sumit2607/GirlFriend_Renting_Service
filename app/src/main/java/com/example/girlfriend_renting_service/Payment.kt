@@ -49,7 +49,7 @@ class Payment : AppCompatActivity(), PaymentResultListener {
         } catch (e: Exception) {
             Log.e("TAG", "Error in starting Razorpay Checkout", e)
         }
-        return true
+        return false
     }
     override fun onPaymentSuccess(s: String) {
         paytext!!.text = "Successful payment ID :$s"
