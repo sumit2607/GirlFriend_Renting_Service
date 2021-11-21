@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:gravity="center"
     android:background="#fff"
     android:orientation="vertical"
@@ -31,6 +32,7 @@
             android:id="@+id/reg_name"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
+            app:startIconDrawable="@drawable/ic_user"
             android:layout_height="wrap_content"
             android:hint="Enter Full Name">
             <com.google.android.material.textfield.TextInputEditText
@@ -42,6 +44,7 @@
             android:id="@+id/reg_email"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
+            app:startIconDrawable="@drawable/ic_email"
             android:layout_height="wrap_content"
             android:hint="Enter your Email Address">
             <com.google.android.material.textfield.TextInputEditText
@@ -56,6 +59,7 @@
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/reg_adhar"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                app:startIconDrawable="@drawable/ic_aadhar"
                 android:layout_width="wrap_content"
                 android:layout_weight="3"
                 android:layout_height="wrap_content"
@@ -67,7 +71,7 @@
             </com.google.android.material.textfield.TextInputLayout>
             <ImageView
                 android:id="@+id/btnAdharValidation"
-                android:src="@drawable/ic_verify"
+                android:src="@drawable/ic_check"
                 android:layout_gravity="center"
                 android:layout_width="0dp"
                 android:layout_height="40dp"
@@ -76,6 +80,7 @@
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/reg_age"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            app:startIconDrawable="@drawable/ic_age"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Enter your age">
@@ -87,6 +92,7 @@
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/reg_password"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            app:startIconDrawable="@drawable/ic_password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Choose a password">

@@ -33,9 +33,9 @@
         <activity
             android:name=".Payment"
             android:exported="false" />
-        <activity
-            android:name=".Splash.SplashActivity"
-            android:exported="false"/>
+<!--        <activity-->
+<!--            android:name=".Splash.SplashActivity"-->
+<!--            android:exported="false"/>-->
         <activity
             android:name=".ProfileActivity"
             android:exported="false" />
@@ -57,14 +57,14 @@
         <activity
             android:name=".Verify"
             android:exported="false" />
-<!--        <activity-->
-<!--            android:name=".MainActivity"-->
-<!--            android:exported="false" />-->
+        <activity
+            android:name=".MainActivity"
+            android:exported="false" />
         <activity
             android:name=".mobile"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name=".Splash.SplashActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
